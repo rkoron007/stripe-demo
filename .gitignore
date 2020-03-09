@@ -1,2 +1,3 @@
-config/keys.js
+config
+server/config
 node_modules

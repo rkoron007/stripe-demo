@@ -1,0 +1,25 @@
+body {
+  background-color: #e9ecef;
+}
+
+h1 {
+  text-align: center;
+}
+
+.item-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.item-list > li {
+  padding-bottom: 15px;
+}
+
+.error-message {
+  text-align: center;
+  padding-top: 10px;
+}

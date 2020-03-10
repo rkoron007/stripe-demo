@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const Item = require("./models/item");
-const User = require("./models/user");
+const Item = require("../models/item");
+const User = require("../models/user");
 
-router.get("/", (req, res) => res.send("hello!"));
+// set up our HTML page which React will render upon
+router.get("/", (req, res) => {
+  res.sendFile("index.html");
+});
 
+// create a new item
 router.post("/api/items", (req, res) => {
   const newItem = new Item({
     name: req.body.name,
@@ -21,6 +25,7 @@ router.post("/api/items", (req, res) => {
     .catch(err => res.send(err.message));
 });
 
+// create a new user
 router.post("/api/users", (req, res) => {
   const newUser = new User({
     name: req.body.name,
@@ -35,29 +40,12 @@ router.post("/api/users", (req, res) => {
     .catch(err => res.send(err.message));
 });
 
+// fetch all items
 router.get("/api/items", (req, res) => {
   Item.find().then(items => res.json(items));
 });
 
-router.delete("/api/items/:itemId", (req, res) => {
-  Item.deleteOne({ id: req.params.itemId }).then(() =>
-    res.send("Item deleted!")
-  );
-});
-
-router.post("/api/charge", (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-    price: req.body.price,
-    description: req.body.description
-  });
-
-  newItem
-    .save()
-    .then(item => {
-      res.json(item);
-    })
-    .catch(err => res.send(err.message));
-});
+// create a new charge
+router.post("/api/charge", (req, res) => {});
 
 module.exports = router;

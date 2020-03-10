@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Item = require("../models/item");
 const User = require("../models/user");
+const handleItemPurchase = require("./payments");
 
 // set up our HTML page which React will render upon
 router.get("/", (req, res) => {
@@ -45,7 +46,10 @@ router.get("/api/items", (req, res) => {
   Item.find().then(items => res.json(items));
 });
 
-// create a new charge
-router.post("/api/charge", (req, res) => {});
+// deal with payments
+
+router.post("/api/pay", async (request, response) => {
+  return handleItemPurchase(request, response);
+});
 
 module.exports = router;

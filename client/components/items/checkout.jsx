@@ -1,79 +1,81 @@
-import React, { Component } from "react";
-import {
-  CardElement,
-  injectStripe,
-  StripeProvider,
-  Elements
-} from "react-stripe-elements";
+import React from "react";
+import regeneratorRuntime from "regenerator-runtime";
+import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
 
-// You can customize your Elements to give it the look and feel of your site.
-const createOptions = () => {
-  return {
-    style: {
-      base: {
-        fontSize: "16px",
-        color: "#424770",
-        fontFamily: "Open Sans, sans-serif",
-        letterSpacing: "0.025em",
-        "::placeholder": {
-          color: "#aab7c4"
-        }
-      },
-      invalid: {
-        color: "#c23d4b"
+class CheckoutForm extends React.Component {
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const { stripe, elements } = this.props;
+
+    const result = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+      billing_details: {
+        // Include any additional collected billing details.
+        name: "bobby",
+        email: "bobby@bobbyg.com"
       }
-    }
-  };
-};
+    });
 
-class _CardForm extends Component {
-  state = {
-    errorMessage: ""
+    this.handlePaymentMethodResult(result);
   };
 
-  handleChange = ({ error }) => {
-    if (error) {
-      this.setState({ errorMessage: error.message });
-    }
-  };
-
-  handleSubmit = evt => {
-    evt.preventDefault();
-    if (this.props.stripe) {
-      this.props.stripe.createToken().then(this.props.handleResult);
+  handlePaymentMethodResult = async result => {
+    if (result.error) {
+      // An error happened when collecting card details,
+      // show `result.error.message` in the payment form.
     } else {
-      console.log("Stripe.js hasn't loaded yet.");
+      // Otherwise send paymentMethod.id to your server (see Step 3)
+      const response = await fetch("/pay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          payment_method_id: result.paymentMethod.id
+        })
+      });
+
+      const serverResponse = await response.json();
+
+      this.handleServerResponse(serverResponse);
+    }
+  };
+
+  handleServerResponse = serverResponse => {
+    if (serverResponse.error) {
+      // An error happened when charging the card,
+      // show the error in the payment form.
+    } else {
+      // Show a success message
+    }
+  };
+
+  handleCardChange = event => {
+    if (event.error) {
+      // Show `event.error.message` in the payment form.
     }
   };
 
   render() {
+    const { stripe } = this.props;
+
     return (
-      <div className="CardDemo">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label>
-            Card details
-            <CardElement onChange={this.handleChange} {...createOptions()} />
-          </label>
-          <div className="error" role="alert">
-            {this.state.errorMessage}
-          </div>
-          <button>Pay</button>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <CardElement onChange={this.handleCardChange} />
+        <button type="submit" disabled={!stripe}>
+          Submit Payment
+        </button>
+      </form>
     );
   }
 }
 
-const CardForm = injectStripe(_CardForm);
-
-export class CardDemo extends Component {
-  render() {
-    return (
-      <StripeProvider apiKey={this.props.stripePublicKey}>
-        <Elements>
-          <CardForm handleResult={this.props.handleResult} />
-        </Elements>
-      </StripeProvider>
-    );
-  }
+export default function InjectedCheckoutForm() {
+  return (
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CheckoutForm stripe={stripe} elements={elements} />
+      )}
+    </ElementsConsumer>
+  );
 }

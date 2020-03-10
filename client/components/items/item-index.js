@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { fetchItems } from "../../util/util";
 
 export default class ItemIndex extends Component {
@@ -27,7 +28,10 @@ export default class ItemIndex extends Component {
     return (
       <div>
         <h1>Items for Sale</h1>
-        <Link to="/checkout">Checkout</Link>
+
+        <Link to="/checkout">
+          <Button>Checkout</Button>
+        </Link>
         <ul className="item-list">
           {this.state.items.map(item => (
             <ListItem item={item} key={item._id} addToCart={this.addToCart} />

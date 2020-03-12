@@ -78,10 +78,12 @@ class CheckoutForm extends React.Component {
     if (paymentResult.error) {
       this.setState({ message: paymentResult.error });
     } else {
-      await createPaymentIntent(
+      const serverResponse = await createPaymentIntent(
         paymentResult.paymentMethod,
         price
-      ).then(response => this.handleServerResponse(response));
+      );
+
+      this.handleServerResponse(serverResponse);
     }
   };
 

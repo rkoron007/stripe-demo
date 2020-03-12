@@ -15,14 +15,6 @@ const fetchRequest = url => {
   });
 };
 
-export const fetchItems = () => {
-  return fetchRequest("/api/items")
-    .then(response => handleResponseJSON(response))
-    .then(data => {
-      return data;
-    });
-};
-
 const postRequest = (url, body) => {
   return fetch(`${url}`, {
     method: "POST",
@@ -41,5 +33,5 @@ export const createPaymentIntent = (paymentMethod, price) => {
       paymentMethodId: paymentMethod.id,
       price: price
     })
-  );
+  ).then(response => handleResponseJSON(response));
 };

@@ -292,7 +292,7 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handlePaymentMethodResult", /*#__PURE__*/function () {
       var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(paymentResult) {
-        var price;
+        var price, serverResponse;
         return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -308,16 +308,19 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
                   message: paymentResult.error
                 });
 
-                _context3.next = 7;
+                _context3.next = 9;
                 break;
 
               case 5:
                 _context3.next = 7;
-                return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["createPaymentIntent"])(paymentResult.paymentMethod, price).then(function (response) {
-                  return _this.handleServerResponse(response);
-                });
+                return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["createPaymentIntent"])(paymentResult.paymentMethod, price);
 
               case 7:
+                serverResponse = _context3.sent;
+
+                _this.handleServerResponse(serverResponse);
+
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -600,12 +603,11 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!*****************************!*\
   !*** ./client/util/util.js ***!
   \*****************************/
-/*! exports provided: fetchItems, createPaymentIntent */
+/*! exports provided: createPaymentIntent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchItems", function() { return fetchItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentIntent", function() { return createPaymentIntent; });
 var handleResponseJSON = function handleResponseJSON(response) {
   if (response.status >= 201) {
@@ -625,14 +627,6 @@ var fetchRequest = function fetchRequest(url) {
   });
 };
 
-var fetchItems = function fetchItems() {
-  return fetchRequest("/api/items").then(function (response) {
-    return handleResponseJSON(response);
-  }).then(function (data) {
-    return data;
-  });
-};
-
 var postRequest = function postRequest(url, body) {
   return fetch("".concat(url), {
     method: "POST",
@@ -648,7 +642,9 @@ var createPaymentIntent = function createPaymentIntent(paymentMethod, price) {
   return postRequest("/api/pay", JSON.stringify({
     paymentMethodId: paymentMethod.id,
     price: price
-  }));
+  })).then(function (response) {
+    return handleResponseJSON(response);
+  });
 };
 
 /***/ }),

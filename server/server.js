@@ -35,3 +35,6 @@ app.use(express.static(path.resolve(__dirname, "../client")));
 app.use("/", routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// for testing
+module.exports = app;

@@ -22,3 +22,24 @@ export const fetchItems = () => {
       return data;
     });
 };
+
+const postRequest = (url, body) => {
+  return fetch(`${url}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin",
+    body: `${body}`
+  });
+};
+
+export const createPaymentIntent = (paymentMethod, price) => {
+  return postRequest(
+    "/api/pay",
+    JSON.stringify({
+      paymentMethodId: paymentMethod.id,
+      price: price
+    })
+  );
+};

@@ -26,6 +26,7 @@ const port = process.env.PORT || 3000;
 
 // ensure our app is getting info parsed correctly
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // for routing to the index.html
 app.use(express.static(path.resolve(__dirname, "../client")));

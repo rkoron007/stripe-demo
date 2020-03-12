@@ -103,8 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stripe_stripe_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @stripe/stripe-js */ "./node_modules/@stripe/stripe-js/dist/stripe.esm.js");
 /* harmony import */ var _config_keys__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../config/keys */ "./config/keys.js");
 /* harmony import */ var _config_keys__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_config_keys__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _items_item_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./items/item-index */ "./client/components/items/item-index.js");
-/* harmony import */ var _items_checkout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./items/checkout */ "./client/components/items/checkout.jsx");
+/* harmony import */ var _items_itemIndex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./items/itemIndex */ "./client/components/items/itemIndex.js");
+/* harmony import */ var _checkout_checkoutForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./checkout/checkoutForm */ "./client/components/checkout/checkoutForm.jsx");
 
 
 
@@ -115,29 +115,34 @@ __webpack_require__.r(__webpack_exports__);
 var stripePromise = Object(_stripe_stripe_js__WEBPACK_IMPORTED_MODULE_3__["loadStripe"])(_config_keys__WEBPACK_IMPORTED_MODULE_4__["stripeTestKey"]);
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__["Elements"], {
-    stripe: stripePromise
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
-    path: "/",
-    component: _items_item_index__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
-    path: "/checkout",
-    component: _items_checkout__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-    to: "/"
-  }))));
+  return (// allows use to use Element components and access the stripe object
+    // sort of like allowing Redux state access
+    // returns a promise
+    // the stripe object allow access to Stripe's SDK
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__["Elements"], {
+      stripe: stripePromise
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      exact: true,
+      path: "/",
+      component: _items_itemIndex__WEBPACK_IMPORTED_MODULE_5__["default"]
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      exact: true,
+      path: "/checkout",
+      component: _checkout_checkoutForm__WEBPACK_IMPORTED_MODULE_6__["default"]
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      to: "/"
+    }))))
+  );
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
 
-/***/ "./client/components/items/checkout.jsx":
-/*!**********************************************!*\
-  !*** ./client/components/items/checkout.jsx ***!
-  \**********************************************/
+/***/ "./client/components/checkout/checkoutForm.jsx":
+/*!*****************************************************!*\
+  !*** ./client/components/checkout/checkoutForm.jsx ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -148,8 +153,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
-/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/util */ "./client/util/util.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @stripe/react-stripe-js */ "./node_modules/@stripe/react-stripe-js/dist/react-stripe.umd.js");
+/* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _items_listItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../items/listItem */ "./client/components/items/listItem.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -176,38 +183,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+ // import CardElement for collecting details
 
+
+
+var styles = {
+  style: {
+    base: {
+      fontSize: "16px",
+      color: "#424770",
+      "::placeholder": {
+        color: "#aab7c4"
+      }
+    },
+    invalid: {
+      color: "#9e2146"
+    }
+  }
+};
 
 var CheckoutForm = /*#__PURE__*/function (_React$Component) {
   _inherits(CheckoutForm, _React$Component);
 
-  function CheckoutForm() {
-    var _getPrototypeOf2;
-
+  function CheckoutForm(_ref) {
     var _this;
+
+    var _stripe = _ref.stripe,
+        _elements = _ref.elements;
 
     _classCallCheck(this, CheckoutForm);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckoutForm).call(this));
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(CheckoutForm)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _defineProperty(_assertThisInitialized(_this), "fetchCart", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee() {
+      var itemIds, items;
+      return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              // gather all our items from localStorage
+              itemIds = Object.keys(localStorage);
+
+              if (!(itemIds.length < 1)) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return", undefined);
+
+            case 3:
+              items = [];
+              itemIds.forEach(function (id) {
+                items.push(JSON.parse(localStorage.getItem(id)));
+              });
+              _context.next = 7;
+              return _this.setState({
+                cart: items
+              });
+
+            case 7:
+              return _context.abrupt("return", items);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(event) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(event) {
         var _this$props, stripe, elements, result;
 
-        return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+        return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 event.preventDefault();
                 _this$props = _this.props, stripe = _this$props.stripe, elements = _this$props.elements;
-                _context.next = 4;
+                _context2.next = 4;
                 return stripe.createPaymentMethod({
                   type: "card",
-                  card: elements.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__["CardElement"]),
+                  card: elements.getElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__["CardElement"]),
                   billing_details: {
                     // Include any additional collected billing details.
                     name: "bobby",
@@ -216,61 +274,10 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 4:
-                result = _context.sent;
-
-                _this.handlePaymentMethodResult(result);
+                result = _context2.sent;
+                return _context2.abrupt("return", _this.handlePaymentMethodResult(result));
 
               case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }());
-
-    _defineProperty(_assertThisInitialized(_this), "handlePaymentMethodResult", /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(result) {
-        var response, serverResponse;
-        return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (!result.error) {
-                  _context2.next = 3;
-                  break;
-                }
-
-                _context2.next = 10;
-                break;
-
-              case 3:
-                _context2.next = 5;
-                return fetch("/pay", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    payment_method_id: result.paymentMethod.id
-                  })
-                });
-
-              case 5:
-                response = _context2.sent;
-                _context2.next = 8;
-                return response.json();
-
-              case 8:
-                serverResponse = _context2.sent;
-
-                _this.handleServerResponse(serverResponse);
-
-              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -278,38 +285,121 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
         }, _callee2);
       }));
 
+      return function (_x) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "handlePaymentMethodResult", /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(paymentResult) {
+        var price;
+        return regenerator_runtime__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                price = _this.cartSum();
+
+                if (!paymentResult.error) {
+                  _context3.next = 5;
+                  break;
+                }
+
+                _this.setState({
+                  message: paymentResult.error
+                });
+
+                _context3.next = 7;
+                break;
+
+              case 5:
+                _context3.next = 7;
+                return Object(_util_util__WEBPACK_IMPORTED_MODULE_2__["createPaymentIntent"])(paymentResult.paymentMethod, price).then(function (response) {
+                  return _this.handleServerResponse(response);
+                });
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
       return function (_x2) {
-        return _ref2.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       };
     }());
 
     _defineProperty(_assertThisInitialized(_this), "handleServerResponse", function (serverResponse) {
-      if (serverResponse.error) {// An error happened when charging the card,
-        // show the error in the payment form.
-      } else {// Show a success message
-        }
-    });
+      console.log(serverResponse);
 
-    _defineProperty(_assertThisInitialized(_this), "handleCardChange", function (event) {
-      if (event.error) {// Show `event.error.message` in the payment form.
+      if (serverResponse.error) {
+        // An error happened when charging the card,
+        // show the error in the payment form.
+        _this.setState({
+          message: serverResponse.error
+        });
+      } else {
+        // Show a success message
+        // localStorage.clear();
+        _this.setState({
+          message: serverResponse.message
+        });
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleCardChange", function (event) {
+      if (event.error) {
+        // Show `event.error.message` in the payment form.
+        _this.setState({
+          message: event.error.message
+        });
+      }
+    });
+
+    _this.state = {
+      message: "",
+      cart: []
+    };
     return _this;
   }
 
   _createClass(CheckoutForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.fetchCart();
+    }
+  }, {
+    key: "cartSum",
+    value: function cartSum() {
+      var sum = 0;
+      this.state.cart.forEach(function (item) {
+        return sum += item.price;
+      });
+      return sum * 100;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var cart = this.state.cart;
+      if (!cart) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Go find some items to add to your cart");
       var stripe = this.props.stripe;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "item-list"
+      }, cart.map(function (item) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_items_listItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          item: item,
+          key: item._id
+        });
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__["CardElement"], {
-        onChange: this.handleCardChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__["CardElement"], {
+        onChange: this.handleCardChange,
+        options: styles
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         disabled: !stripe
-      }, "Submit Payment"));
+      }, "Submit Payment"), this.state.message));
     }
   }]);
 
@@ -317,22 +407,25 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 function InjectedCheckoutForm() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_2__["ElementsConsumer"], null, function (_ref3) {
-    var stripe = _ref3.stripe,
-        elements = _ref3.elements;
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CheckoutForm, {
-      stripe: stripe,
-      elements: elements
-    });
-  });
+  // wrap  CheckoutForm in ElementsConsumer
+  return (// assume this is for accessing the stripe object (like mapStatetoProps)
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__["ElementsConsumer"], null, function (_ref5) {
+      var stripe = _ref5.stripe,
+          elements = _ref5.elements;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CheckoutForm, {
+        stripe: stripe,
+        elements: elements
+      });
+    })
+  );
 }
 
 /***/ }),
 
-/***/ "./client/components/items/item-index.js":
-/*!***********************************************!*\
-  !*** ./client/components/items/item-index.js ***!
-  \***********************************************/
+/***/ "./client/components/items/itemIndex.js":
+/*!**********************************************!*\
+  !*** ./client/components/items/itemIndex.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -341,7 +434,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ItemIndex; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _list_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./list-item */ "./client/components/items/list-item.js");
+/* harmony import */ var _listItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listItem */ "./client/components/items/listItem.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 /* harmony import */ var _util_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/util */ "./client/util/util.js");
@@ -407,13 +500,18 @@ var ItemIndex = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      if (!this.state.items.length > 1) return undefined;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Items for Sale"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      if (!this.state.items.length > 1) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading...");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "header-nav"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Items for Sale"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        className: "checkout-Btn",
         to: "/checkout"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Checkout")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Checkout"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "item-list"
       }, this.state.items.map(function (item) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
           item: item,
           key: item._id,
           addToCart: _this3.addToCart
@@ -429,10 +527,10 @@ var ItemIndex = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./client/components/items/list-item.js":
-/*!**********************************************!*\
-  !*** ./client/components/items/list-item.js ***!
-  \**********************************************/
+/***/ "./client/components/items/listItem.js":
+/*!*********************************************!*\
+  !*** ./client/components/items/listItem.js ***!
+  \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -447,18 +545,24 @@ __webpack_require__.r(__webpack_exports__);
 var ListItem = function ListItem(_ref) {
   var item = _ref.item,
       addToCart = _ref.addToCart;
+  var button = "";
+
+  if (addToCart) {
+    button = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      onClick: function onClick() {
+        return addToCart(item);
+      },
+      variant: "primary"
+    }, "Add to Cart");
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"], {
     style: {
       width: "18rem"
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Header, {
     as: "h4"
-  }, "".concat(item.name, " - $").concat(item.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Text, null, item.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    onClick: function onClick() {
-      return addToCart(item);
-    },
-    variant: "primary"
-  }, "Add to Cart"))));
+  }, "".concat(item.name, " - $").concat(item.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Text, null, item.description), button)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ListItem);
@@ -496,12 +600,13 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!*****************************!*\
   !*** ./client/util/util.js ***!
   \*****************************/
-/*! exports provided: fetchItems */
+/*! exports provided: fetchItems, createPaymentIntent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchItems", function() { return fetchItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentIntent", function() { return createPaymentIntent; });
 var handleResponseJSON = function handleResponseJSON(response) {
   if (response.status >= 201) {
     throw new Error("Bad response from server");
@@ -526,6 +631,24 @@ var fetchItems = function fetchItems() {
   }).then(function (data) {
     return data;
   });
+};
+
+var postRequest = function postRequest(url, body) {
+  return fetch("".concat(url), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin",
+    body: "".concat(body)
+  });
+};
+
+var createPaymentIntent = function createPaymentIntent(paymentMethod, price) {
+  return postRequest("/api/pay", JSON.stringify({
+    paymentMethodId: paymentMethod.id,
+    price: price
+  }));
 };
 
 /***/ }),

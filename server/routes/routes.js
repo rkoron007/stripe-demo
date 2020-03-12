@@ -46,9 +46,8 @@ router.get("/api/items", (req, res) => {
   Item.find().then(items => res.json(items));
 });
 
-// deal with payments
-
-router.post("/api/pay", async (request, response) => {
+// add a new payment
+router.post("/api/pay", (request, response) => {
   return handleItemPurchase(request, response);
 });
 

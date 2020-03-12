@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ListItem from "./list-item";
+import ListItem from "./listItem";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { fetchItems } from "../../util/util";
@@ -23,15 +23,16 @@ export default class ItemIndex extends Component {
   }
 
   render() {
-    if (!this.state.items.length > 1) return undefined;
+    if (!this.state.items.length > 1) return <h1>Loading...</h1>;
 
     return (
-      <div>
-        <h1>Items for Sale</h1>
-
-        <Link to="/checkout">
+      <div className="header">
+        <div className="header-nav">
+          <h1>Items for Sale</h1>
+          <Link className="checkout-Btn" to="/checkout">
           <Button>Checkout</Button>
-        </Link>
+          </Link>
+        </div>
         <ul className="item-list">
           {this.state.items.map(item => (
             <ListItem item={item} key={item._id} addToCart={this.addToCart} />

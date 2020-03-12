@@ -187,17 +187,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var styles = {
+var CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
+      color: "#32325d",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: "antialiased",
       fontSize: "16px",
-      color: "#424770",
       "::placeholder": {
         color: "#aab7c4"
       }
     },
     invalid: {
-      color: "#9e2146"
+      color: "#fa755a",
+      iconColor: "#fa755a"
     }
   }
 };
@@ -397,8 +400,9 @@ var CheckoutForm = /*#__PURE__*/function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_3__["CardElement"], {
+        className: "form-control",
         onChange: this.handleCardChange,
-        options: styles
+        options: CARD_ELEMENT_OPTIONS
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         disabled: !stripe
@@ -603,11 +607,12 @@ document.addEventListener("DOMContentLoaded", function () {
 /*!*****************************!*\
   !*** ./client/util/util.js ***!
   \*****************************/
-/*! exports provided: createPaymentIntent */
+/*! exports provided: fetchItems, createPaymentIntent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchItems", function() { return fetchItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentIntent", function() { return createPaymentIntent; });
 var handleResponseJSON = function handleResponseJSON(response) {
   if (response.status >= 201) {
@@ -624,6 +629,14 @@ var fetchRequest = function fetchRequest(url) {
       "Content-Type": "application/json"
     },
     credentials: "same-origin"
+  });
+};
+
+var fetchItems = function fetchItems() {
+  return fetchRequest("/api/items").then(function (response) {
+    return handleResponseJSON(response);
+  }).then(function (data) {
+    return data;
   });
 };
 

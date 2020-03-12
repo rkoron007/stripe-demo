@@ -6,17 +6,20 @@ import { createPaymentIntent } from "../../util/util";
 import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
 import ListItem from "../items/listItem";
 
-const styles = {
+const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
+      color: "#32325d",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: "antialiased",
       fontSize: "16px",
-      color: "#424770",
       "::placeholder": {
         color: "#aab7c4"
       }
     },
     invalid: {
-      color: "#9e2146"
+      color: "#fa755a",
+      iconColor: "#fa755a"
     }
   }
 };
@@ -119,7 +122,11 @@ class CheckoutForm extends React.Component {
           ))}
         </ul>
         <form onSubmit={this.handleSubmit}>
-          <CardElement onChange={this.handleCardChange} options={styles} />
+          <CardElement
+            className="form-control"
+            onChange={this.handleCardChange}
+            options={CARD_ELEMENT_OPTIONS}
+          />
           <button type="submit" disabled={!stripe}>
             Submit Payment
           </button>

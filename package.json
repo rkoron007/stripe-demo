@@ -27,7 +27,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "concurrently": "^5.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mocha": "^7.1.0",
     "mongoose": "^5.9.4",
     "nodemon": "^2.0.2",
